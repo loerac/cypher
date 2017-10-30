@@ -1,20 +1,20 @@
 import argparse
 
 def enc(phrase):
-    temp=""
+    temp=''
     j=0
     for i in range(0,len(phrase)):
         if phrase[i]!='\n':
             temp+=phrase[i]
     phrase=temp
-    temp=""
+    temp=''
     for i in range(len(phrase)):
         if i%2==0:
             temp+=phrase[len(phrase)-j-1]
             j+=1
         else:
             temp+=phrase[j-1]
-    phrase=""
+    phrase=''
     mid=(int(len(temp)/2)-1) if len(temp)%2 ==0 else int(len(temp)/2)
     j=0
     for i in range(0,len(temp)):
