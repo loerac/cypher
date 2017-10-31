@@ -30,37 +30,37 @@ def enc(phrase):
 def dec(phrase):
     temp=''
     for i in range(len(phrase)):
-	if phrase[i]!='\n':
-	    temp+=phrase[i]
+        if phrase[i]!='\n':
+            temp+=phrase[i]
     phrase=''
     s=(len(temp)-2) if len(temp)%2==0 else (len(temp)-1)
     for i in range(len(temp)):
         if i<(len(temp)/2 -1):
-	    phrase+=temp[s]
-	    s-=2
+            phrase+=temp[s]
+            s-=2
         elif s<=0:
-	    phrase+=temp[s]
-	    s=(len(temp)-1) if len(temp)%2==0 else (len(temp)-2)
-	else:
-	    phrase+=temp[s]
-	    s-=2
+            phrase+=temp[s]
+            s=(len(temp)-1) if len(temp)%2==0 else (len(temp)-2)
+        else:
+            phrase+=temp[s]
+            s-=2
     temp=''
     s=1
     b=True
     for i in range(len(phrase)):
-	if s<(len(phrase)-1) and b:
-	    temp+=phrase[s]
-	    s+=2
-	    if s>=(len(phrase)-1):
-        	    if len(phrase)%2==0:
-	        	temp+=phrase[s]
-        	    s=len(phrase)-2 if len(phrase)%2==0 else len(phrase)-1
-	            b=False
-	else:
-	    temp+=phrase[s]
-	    s-=2
+        if s<(len(phrase)-1) and b:
+            temp+=phrase[s]
+            s+=2
+            if s>=(len(phrase)-1):
+                    if len(phrase)%2==0:
+                        temp+=phrase[s]
+                    s=len(phrase)-2 if len(phrase)%2==0 else len(phrase)-1
+                    b=False
+        else:
+            temp+=phrase[s]
+            s-=2
     if len(phrase)%2!=0:
-	temp+=phrase[s]
+        temp+=phrase[s]
     phrase=''
     return temp
 
