@@ -3,9 +3,9 @@ import argparse
 def enc(phrase):
     temp=''
     j=0
+    phrase=phrase.split('\n')
     for i in range(0,len(phrase)):
-        if phrase[i]!='\n':
-            temp+=phrase[i]
+        temp+=phrase[i]
     phrase=temp
     temp=''
     for i in range(len(phrase)):
@@ -24,7 +24,6 @@ def enc(phrase):
             mid-=1
         else:
             phrase+=temp[len(temp)-j]
-    temp='' 
     return phrase 
 
 def dec(phrase):
@@ -47,7 +46,7 @@ def dec(phrase):
     temp=''
     s=1
     b=True
-    for i in range(len(phrase)):
+    for i in range(len(phrase)-1):
 	if s<(len(phrase)-1) and b:
 	    temp+=phrase[s]
 	    s+=2
@@ -62,14 +61,23 @@ def dec(phrase):
     if len(phrase)%2!=0:
 	temp+=phrase[s]
     phrase=''
-    return temp
+    c=0
+    for i in range(len(temp)-1):
+        if (temp[c]=='.' or temp[c]=='!' or temp[c]=='?') and temp[c+1].isalpha():
+	    phrase+=temp[c]+'\n'*2
+	else:
+            phrase+=temp[c]
+	c+=1
+    phrase+=temp[c]
+    return phrase
 
 p=argparse.ArgumentParser(description='Encrypt/decrypt a file')
 p.add_argument('filename')
-p.add_argument('-e',dest='action',action='store_const',const=enc,help='Encrypt message')
-p.add_argument('-d',dest='action',action='store_const',const=dec,help='Decrypt message')
+p.add_argument('-e','--encrypt',dest='action',action='store_const',const=enc,help='Encrypt message')
+p.add_argument('-d','--decrypt',dest='action',action='store_const',const=dec,help='Decrypt message')
 a=p.parse_args()
-with open(a.filename,'rt') as f:phrase=f.read()
-phrase=a.action(phrase)
+with open(a.filename,'rt') as f:phrase=f.read().upper()
+phrase=a.action(phrase.upper())
 print('\n'+phrase+'\n')
+phrase=str(phrase)+'\n'
 with open(a.filename,'wt') as f:f.write(phrase)
