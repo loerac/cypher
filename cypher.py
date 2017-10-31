@@ -78,6 +78,6 @@ p.add_argument('-d','--decrypt',dest='action',action='store_const',const=dec,hel
 a=p.parse_args()
 with open(a.filename,'rt') as f:phrase=f.read().upper()
 phrase=a.action(phrase.upper())
-print('\n'+phrase+'\n')
-phrase=str(phrase)+'\n'
+phrase='\n'+str(phrase)+'\n'
+print(phrase)
 with open(a.filename,'wt') as f:f.write(phrase)
