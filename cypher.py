@@ -1,5 +1,6 @@
 import argparse
 import sys
+import os.path
 
 # Function to encrypt taking a string as a parameter.
 def enc(phrase):
@@ -114,18 +115,21 @@ p.add_argument('-d','--decrypt',dest='action',action='store_const',const=dec,hel
 a=p.parse_args()
 
 if sys.argv[0]==a.filename:
-    print("\n\tError: cannot run this file\n")
+    print('\n\tError: cannot run this file\n')
 else:
     # Opening the file that was given for reading.
-    with open(a.filename,'rt') as f:
-        phrase=f.read().upper()
+    if os.path.isfile(a.filename):
+        with open(a.filename,'rt') as f:
+            phrase=f.read().upper()
 
-        # Depending on the arguement, the content of the-
-        # file with either be encrypted or decrtyped.
-        phrase=a.action(phrase.upper())
+            # Depending on the arguement, the content of the-
+            # file with either be encrypted or decrtyped.
+            phrase=a.action(phrase.upper())
 
-        print('\n'+str(phrase)+'\n')
+            print('\n'+str(phrase)+'\n')
 
-    # Writing the content of the phrase back into the file.
-    with open(a.filename,'wt') as f:
-        f.write(phrase)
+        # Writing the content of the phrase back into the file.
+        with open(a.filename,'wt') as f:
+            f.write(phrase)
+    else:
+        print('\n\tError: file not found\n')
