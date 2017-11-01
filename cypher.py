@@ -3,7 +3,7 @@ import argparse
 def enc(phrase):
     temp=''
     j=0
-    phrase=phrase.split('\n')
+    phrase=''.join(phrase.split('\n'))
     for i in range(0,len(phrase)):
         temp+=phrase[i]
     phrase=temp
