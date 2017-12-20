@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import argparse
 import sys
 import os.path
@@ -114,7 +115,8 @@ p.add_argument('-e','--encrypt',dest='action',action='store_const',const=enc,hel
 p.add_argument('-d','--decrypt',dest='action',action='store_const',const=dec,help='Decrypt message')
 a=p.parse_args()
 
-if sys.argv[0]==a.filename:
+
+if (sys.argv[0]==a.filename) or (sys.argv[0]==("./"+a.filename)):
     print('\n\tError: cannot run this file\n')
 else:
     # Opening the file that was given for reading.
